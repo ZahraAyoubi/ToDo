@@ -1,0 +1,78 @@
+﻿@model IEnumerable<ToDo.Web.Models.ToDoListDto>
+<head>
+<style>
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+thead{
+    text-align:center;
+}
+
+</style>
+</head>
+<br />
+<br />
+<div class="container p-4 border">
+    <div class="row pb-2">
+        <div class="col">
+            <h1 class="text-primery">ToDo List</h1>
+        </div>
+        <div class="col text-end pt-2">
+            <a asp-action="Create" class="btn btn-outline-primary"><i>Create</i></a>
+        </div>
+    </div>
+    <table>
+        <thead >
+        <tr>
+            <th>
+                Name
+            </th>
+            <th>
+                Description
+            </th>
+             <th>
+                Create date
+            </th>
+            <th>
+                Completion
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @item.Name
+                    </td>
+                    <td>
+                        @item.Description
+                    </td>
+                    <td>
+                        @item.Date.ToString("dd-MMM-yyyy")
+                    </td>
+                    <td>
+                        @Html.CheckBoxFor(Model => item.IsCompelete)
+                    </td>
+                    <td class="col-2">
+                        <a asp-action="Edit" class="btn btn-success" asp-route-Id="@item.Id">
+                            <i>Edit</i>
+                        </a>
+                         <a asp-action="Delete" class="btn btn-danger" asp-route-Id="@item.Id">
+                            <i>Delete</i>
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
