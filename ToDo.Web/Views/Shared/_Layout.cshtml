@@ -5,8 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - ToDo.Web</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href ="~/css/dropdownstyle.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/ToDo.Web.styles.css" asp-append-version="true" />
+
 </head>
 <body>
     <header>
@@ -27,6 +29,13 @@
                             </li>
                             <li class="nav-item pt-lg-2">
                                 <a class="nav-link" asp-area="" asp-controller="ToDoList" asp-action="ToDoListIndex">ToDo List</a>
+                            </li>
+                            
+                            <li class="dropdown">
+                                <button class="dropbtn">Manage</button>
+                                <div class="dropdown-content">
+                                    <a class="nav-link" asp-action="Index" asp-controller="UserManagement">Users</a>
+                                </div>
                             </li>
                         </ul>
                     }

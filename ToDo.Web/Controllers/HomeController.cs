@@ -43,5 +43,10 @@ namespace ToDo.Web.Controllers
         {
             return SignOut("Cookies", "oidc");
         }
+
+        public IActionResult Register()
+        {
+            return View();
+        }
     }
 }

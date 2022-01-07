@@ -1,4 +1,6 @@
-﻿namespace ToDoList.Service.APIProject.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace ToDoList.Service.APIProject.Models
 {
     public class ToDoListModel
     {

@@ -21,7 +21,8 @@ namespace ToDo.Web.Services
         {
             try
             {
-                var client = httpClient.CreateClient("ToDoListAPI");
+                //var client = httpClient.CreateClient("ToDoListAPI");
+                var client = httpClient.CreateClient("UserManagementAPI");
                 HttpRequestMessage message = new HttpRequestMessage();
                 message.Headers.Add("Accept", "application/json");
                 message.RequestUri = new Uri(request.ApiUrl);

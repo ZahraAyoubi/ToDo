@@ -1,9 +1,12 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using ToDoList.Service.APIProject.DbContexts;
-using ToDoList.Service.APIProject.Repository;
+using UserManagement.Service.APIProject;
+using UserManagement.Service.APIProject.DbContexts;
+using UserManagement.Service.APIProject.Models;
+using UserManagement.Service.APIProject.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,28 +14,21 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<ApplicationDbContext>(option =>
 {
-    option.UseSqlServer(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=master;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False;Database=ToDoListAPI");
+    option.UseSqlServer(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=master;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False;Database=ToDoIdentityServer");
 });
 
-builder.Services.AddCors(option =>
-{
-    option.AddDefaultPolicy(options => options.WithOrigins("https://localhost:44470").AllowAnyHeader().AllowAnyMethod());
-});
 
 builder.Services.AddControllers();
 
 builder.Services.AddAuthentication("Bearer")
     .AddJwtBearer("Bearer", options =>
-     {
-         options.Authority = "https://localhost:7261/";
-         options.TokenValidationParameters = new TokenValidationParameters
-         {
-             //ValidateIssuerSigningKey = true,
-             //IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(builder.Configuration.GetSection("AppSettings:Token").Value)),
-             //ValidateIssuer = false,
-             ValidateAudience = false
-         };
-     });
+    {
+        options.Authority = "https://localhost:7261/";
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateAudience = false
+        };
+    });
 
 builder.Services.AddAuthorization(options =>
 {
@@ -40,7 +36,7 @@ builder.Services.AddAuthorization(options =>
     {
         policy.RequireAuthenticatedUser();
         policy.AuthenticationSchemes.Add(JwtBearerDefaults.AuthenticationScheme);
-        policy.RequireClaim("scope", "todo");
+        policy.RequireClaim("scope", "userManagement");
     });
 });
 
@@ -75,8 +71,8 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 
-builder.Services.AddAutoMapper(typeof(ToDoListRepository));
-builder.Services.AddScoped<IToDoListRepository, ToDoListRepository>();
+builder.Services.AddAutoMapper(typeof(UserManagementRepository));
+builder.Services.AddScoped<IUserManagementRepository, UserManagementRepository>();
 
 var app = builder.Build();
 
@@ -90,8 +86,6 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthentication();
-
-app.UseCors();
 
 app.UseAuthorization();
 

@@ -1,0 +1,84 @@
+﻿@model IEnumerable<ToDo.Web.Models.UserDto>
+<head>
+<style>
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+thead{
+    text-align:center;
+}
+
+</style>
+</head>
+<br />
+<br />
+<div class="container p-4 border">
+    <div class="row pb-2">
+        <div class="col">
+            <h1 class="text-primery">Users</h1>
+        </div>
+        <div class="col text-end pt-2">
+            <a asp-action="Create" class="btn btn-outline-primary"><i>Create</i></a>
+        </div>
+    </div>
+    <table>
+        <thead >
+        <tr>
+            <th>
+                First name
+            </th>
+            <th>
+                Last name
+            </th>
+             <th>
+                Email
+            </th>
+            <th>
+                Phone 
+            </th>
+             <th>
+                Username 
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @item.FisrtName
+                    </td>
+                    <td>
+                        @item.LastName
+                    </td>
+                    <td>
+                        @item.Email
+                    </td>
+                    <td>
+                        @item.PhoneNumber
+                    </td>
+                    <td>
+                        @item.UserName
+                    </td>
+                    <td class="col-2">
+                        <a asp-action="Edit" class="btn btn-success" asp-route-Id="@item.Id">
+                            <i>Edit</i>
+                        </a>
+                         <a asp-action="Delete" class="btn btn-danger" asp-route-Id="@item.Id">
+                            <i>Delete</i>
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

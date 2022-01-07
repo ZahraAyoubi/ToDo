@@ -6,7 +6,7 @@ using ToDoList.Service.APIProject.Repository;
 
 namespace ToDoList.Service.APIProject.Controllers
 {
-    [Route("api/todolist")]
+    [Route("api")]
     public class ToDoListController : ControllerBase
     {
         private IToDoListRepository _toDoListRepository;
@@ -18,8 +18,9 @@ namespace ToDoList.Service.APIProject.Controllers
         }
 
         [HttpGet]
-        [Authorize]
-        public async Task<object> Get()
+        //[Authorize]
+        [Route("todolist")]
+        public async Task<ServiceResponse> Get()
         {
             try
             {
@@ -37,7 +38,7 @@ namespace ToDoList.Service.APIProject.Controllers
 
         [HttpGet("{id}")]
         [Authorize]
-        public async Task<object> GetById(int id)
+        public async Task<ServiceResponse> GetById(int id)
         {
             try
             {
@@ -55,7 +56,7 @@ namespace ToDoList.Service.APIProject.Controllers
 
         [HttpPost]
         [Authorize]
-        public async Task<object> Post([FromBody]ToDoListDto newToDo)
+        public async Task<ServiceResponse> Post([FromBody]ToDoListDto newToDo)
         {
             try
             {
@@ -74,7 +75,7 @@ namespace ToDoList.Service.APIProject.Controllers
 
         [HttpPut]
         [Authorize(Roles = "Admin")]
-        public async Task<object> Put([FromBody] ToDoListDto newToDo)
+        public async Task<ServiceResponse> Put([FromBody] ToDoListDto newToDo)
         {
             try
             {
@@ -95,7 +96,7 @@ namespace ToDoList.Service.APIProject.Controllers
        
         [HttpDelete("{id}")]
         [Authorize(Roles = "Admin")]
-        public async Task<object> Delete(int id)
+        public async Task<ServiceResponse> Delete(int id)
         {
             try
             {

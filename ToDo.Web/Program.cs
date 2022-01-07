@@ -5,10 +5,13 @@ using ToDo.Web.Services.IServices;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddHttpClient<IToDoListService, ToDoListService>();
-SD.ToDoAPIListBase = builder.Configuration["ServiceUrls:ToDoListAPI"];
+//builder.Services.AddHttpClient<IToDoListService, ToDoListService>();
+builder.Services.AddHttpClient<IUserManagementService, UserManagementService>();
+//SD.ToDoAPIListBase = builder.Configuration["ServiceUrls:ToDoListAPI"];
+SD.UserManagementAPIBase = builder.Configuration["ServiceUrls:UserManagementAPI"];
 
-builder.Services.AddScoped<IToDoListService, ToDoListService>();
+//builder.Services.AddScoped<IToDoListService, ToDoListService>();
+builder.Services.AddScoped<IUserManagementService,UserManagementService>(); 
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddAuthentication(options =>
@@ -20,12 +23,14 @@ builder.Services.AddAuthentication(options =>
  {
      options.Authority = builder.Configuration["ServiceUrls:IdentityAPI"]; 
      options.GetClaimsFromUserInfoEndpoint = true;
-     options.ClientId = "todo";
+     //options.ClientId = "todo";
+     options.ClientId = "userManagement";
      options.ClientSecret = "secret";
      options.ResponseType = "code";
      options.TokenValidationParameters.NameClaimType = "name";
      options.TokenValidationParameters.RoleClaimType = "role";
-     options.Scope.Add("todo");
+     //options.Scope.Add("todo");
+     options.Scope.Add("userManagement");
      options.SaveTokens = true;
  });
 

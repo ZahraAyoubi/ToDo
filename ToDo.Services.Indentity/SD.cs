@@ -19,7 +19,8 @@ namespace ToDo.Services.Indentity
         public static IEnumerable<ApiScope> ApiScopes =
             new List<ApiScope>
             {
-                new ApiScope("todo", "ToDo Server"),
+                //new ApiScope("todo", "ToDo Server"),
+                new ApiScope("userManagement", "User Management Server"),
                 new ApiScope(name:"read", displayName:"Read your data."),
                 new ApiScope(name:"write", displayName:"Write your data."),
                 new ApiScope(name:"delete", displayName:"Delete your data.")
@@ -35,11 +36,26 @@ namespace ToDo.Services.Indentity
                     AllowedGrantTypes = GrantTypes.ClientCredentials,
                     AllowedScopes = {"read","write","profile"}
                 },
+                // new Client
+                //{
+                //    ClientId = "todo",
+                //    ClientSecrets = {new Secret("secret".Sha256())},
+                //    AllowedGrantTypes = GrantTypes.Code,                  
+                //    RedirectUris={ "https://localhost:7096/signin-oidc" },
+                //    PostLogoutRedirectUris = { "https://localhost:7096/signout-callback-oidc" },
+                //    AllowedScopes = new List<string>
+                //    {
+                //        IdentityServerConstants.StandardScopes.OpenId,
+                //        IdentityServerConstants.StandardScopes.Email,
+                //        IdentityServerConstants.StandardScopes.Profile,
+                //        "todo"
+                //    }
+                //},
                  new Client
-                {
-                    ClientId = "todo",
+                 {
+                    ClientId = "userManagement",
                     ClientSecrets = {new Secret("secret".Sha256())},
-                    AllowedGrantTypes = GrantTypes.Code,                  
+                    AllowedGrantTypes = GrantTypes.Code,
                     RedirectUris={ "https://localhost:7096/signin-oidc" },
                     PostLogoutRedirectUris = { "https://localhost:7096/signout-callback-oidc" },
                     AllowedScopes = new List<string>
@@ -47,9 +63,9 @@ namespace ToDo.Services.Indentity
                         IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Email,
                         IdentityServerConstants.StandardScopes.Profile,
-                        "todo"
+                        "userManagement"
                     }
-                }
+                 }
             };
 
     }
